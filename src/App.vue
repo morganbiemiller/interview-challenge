@@ -18,8 +18,9 @@
           <input type="password" placeholder="Password">
 
           <div class="checkbox">
+            <input type="checkbox" checked="checked">
             <label class="checkbox__label"></label>
-            <input type="checkbox">
+            Subscribe to our weekly newsletter for free virtual gifts
           </div>
 
           <button class="register-button">Register Now</button>
@@ -51,7 +52,9 @@
           <span>“My friends and I are obsessed with this app. We send funny vids to each other all day long!” - DotaStream3r86</span>
         </div>
         <div class="video-wrapper">
-          <iframe src="" width="100%" height="auto"></iframe>
+          <div class="content">
+            <iframe width="100%" height="100%" src="https://www.youtube.com/embed/kLM4Pah5BOg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"></iframe>
+          </div>
         </div>
       </div>
 
@@ -69,7 +72,44 @@
               <a>Read more</a>
             </div>
           </div>
+          <div class="press-item">
+            <div class="press-item__header">
+              <img src="./assets/verge.png">
+            </div>
+            <div class="press-item__content">
+              <h3>Techcrunch</h3>
+              <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar.</p>
+              <a>Read more</a>
+            </div>
+          </div>
+          <div class="press-item">
+            <div class="press-item__header">
+              <img src="./assets/wired.png">
+            </div>
+            <div class="press-item__content">
+              <h3>Techcrunch</h3>
+              <p>Efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas. Dramatically maintain clicks-and-mortar.</p>
+              <a>Read more</a>
+            </div>
+          </div>
         </div>
+      </div>
+
+      <div class="section section--bottom-cta">
+        <div class="counters">
+          <div class="counter">1,540,337 users</div>
+          <div class="counter">1,962,879,337 vids</div>
+        </div>
+        <div class="callout">
+          <button class="register-button register-button--sm">Register Now</button>
+        </div>
+      </div>
+
+      <div class="footer">
+        <a>Careers</a>
+        <a>FAQ</a>
+        <a>Contact</a>
+        <p>All Rights Reserved</p>
       </div>
     </div>
   </div>
@@ -123,9 +163,13 @@ h2 {
 }
 
 h1 {
-  font-size: 70px;
+  font-size: 40px;
   font-weight: 700;
   margin-bottom: 0;
+
+  @media (min-width: 800px) {
+    font-size: 70px;
+  }
 }
 
 h2 {
@@ -187,11 +231,18 @@ button {
 .nav {
   display: grid;
   grid-template-columns: 60px 1fr;
+  margin-bottom: 80px;
 }
 
 .nav__menu {
   align-self: center;
   justify-self: end;
+
+  a,
+  button {
+    text-decoration: none;
+    margin-left: @margin;
+  }
 }
 
 .login-button {
@@ -200,16 +251,98 @@ button {
   .radius();
 }
 
+.section {
+  margin-bottom: 80px;
+}
+
+.section--jumbo {
+  display: grid;
+
+  @media (min-width: 800px) {
+    grid-template-columns: 2fr 1fr;
+    grid-gap: 48px;
+    align-items: center;
+  }
+
+  h1 {
+    max-width: 729px;
+    margin-bottom: 32px;
+
+    @media (min-width: 800px) {
+      margin-bottom: 0;
+    }
+  }
+
+  .form {
+    width: 100%;
+    max-width: 354px;
+    margin: 0 auto;
+  }
+}
+
+.checkbox {
+  display: block;
+  position: relative;
+  padding-left: 16px;
+  cursor: pointer;
+  font-size: 12px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  input:checked ~ .checkmark__label {
+    background-color: #2196f3;
+  }
+
+  input:checked ~ .checkmark__label:after {
+    display: block;
+  }
+
+  .checkmark__label:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+}
+
+.checkbox__label {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 16px;
+  width: 16px;
+  background-color: #eee;
+
+  &:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+}
+
 .register-button {
   background-color: @pink;
   line-height: 64px;
   font-size: 16px;
   border-radius: 100px;
   width: 100%;
-}
-
-.section {
-  margin-bottom: 80px;
 }
 
 .section--steps {
@@ -243,9 +376,59 @@ button {
   }
 }
 
+.section--live,
+.section--bottom-cta {
+  margin: 0 -32px 80px -32px;
+}
+
+.callout {
+  background-color: @purple-light;
+  text-align: center;
+  max-width: 1280px;
+  .padding();
+}
+
+.aspect-ratio(@width, @height) {
+  position: relative;
+
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: (@height / @width) * 100%;
+  }
+
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    span:before {
+      content: "@{width}";
+    }
+
+    span:after {
+      content: "@{height}";
+    }
+  }
+}
+
+.video-wrapper {
+  .aspect-ratio(16, 9);
+  background: @purple-dark;
+  color: #fff;
+  max-height: 562px;
+}
+
+.section--press {
+  text-align: center;
+}
+
 .press-items {
   display: grid;
   grid-gap: 32px;
+  text-align: left;
 
   @media (min-width: 800px) {
     grid-template-columns: repeat(3, 1fr);
@@ -264,12 +447,46 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  .padding();
 
   img {
-    object-fit: contain;
+    object-fit: scale-down;
   }
 }
 
-.press-item__body {
+.press-item__content {
+  .padding();
+
+  p {
+    margin-bottom: 8px;
+  }
+}
+
+.counters {
+  justify-content: space-between;
+  text-align: center;
+
+  @media (min-width: 800px) {
+    display: flex;
+  }
+}
+.counter {
+  font-family: "Roboto Mono", monospace;
+  font-size: 40px;
+  color: @purple-dark;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+
+  a,
+  p {
+    margin-left: @margin;
+  }
+
+  p {
+    line-height: normal;
+  }
 }
 </style>

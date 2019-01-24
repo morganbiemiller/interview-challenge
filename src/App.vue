@@ -343,6 +343,7 @@ button {
   font-size: 16px;
   border-radius: 100px;
   width: 100%;
+  max-width: 352px;
 }
 
 .section--steps {
